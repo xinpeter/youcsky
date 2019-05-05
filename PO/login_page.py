@@ -14,7 +14,7 @@ class LoginPage(Action):
     password = "xiaomaomao1"
     subject_loc = (By.ID,"subject")
     message_loc = (By.CSS_SELECTOR,'body')
-    tem_loc = (By.ID,"romotepic")
+    tem_loc = (By.ID,"e_iframe")
     submit_fatie_BTN = (By.ID,"postsubmit")
 
     edit_loc = (By.XPATH,'//*[@class="editp"]')
@@ -53,9 +53,11 @@ class LoginPage(Action):
 
         # self.find_element(*self.message_loc).send_keys(Keys.TAB)
         # self.find_element(*self.message_loc).send_keys("aaa")
+        iframe = self.find_element(*self.tem_loc)
+        self.driver.switch_to_frame(iframe)
+        self.find_element(*self.message_loc).send_keys(data["message"])
+        self.driver.switch_to_default_content()
 
-        js = 'document.getElementById("e_iframe").contentWindow.document.body.innerHTML="%s"' % data["message"]
-        self.driver.execute_script(js)
 
         time.sleep(10)
         # target = self.find_element(*self.submit_fatie_BTN)

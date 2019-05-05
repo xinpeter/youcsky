@@ -10,6 +10,10 @@ data = load_data(tem_data[0])
 login_obj = LoginPage(driver)
 login_obj.click_login(**data)
 time.sleep(1)
-login_obj.fatie(**data)
-time.sleep(10)
-driver.quit()
+try:
+    login_obj.fatie(**data)
+    time.sleep(10)
+except Exception as e:
+    print(e)
+finally:
+    driver.quit()
