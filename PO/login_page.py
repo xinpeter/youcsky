@@ -35,6 +35,7 @@ class LoginPage(Action):
 
     #登录
     def click_login(self,**data):
+        self.username = data["username"]
         self.driver.get(self.login_url)
         self.find_element(*self.login_BTN).click()
         time.sleep(1)           #等待3秒，等待登录弹窗加载完成
@@ -48,7 +49,7 @@ class LoginPage(Action):
         self.driver.get(self.fatie_url)
 
         self.send_keys(self.subject_loc, self.subject)
-        time.sleep(2)
+        time.sleep(3)
         # self.send_keys(self.message_loc,data["message"])
 
         # self.find_element(*self.message_loc).send_keys(Keys.TAB)
@@ -60,9 +61,9 @@ class LoginPage(Action):
 
 
         time.sleep(10)
-        # target = self.find_element(*self.submit_fatie_BTN)
-        # self.driver.execute_script("arguments[0].scrollIntoView(false);", target)
-        # target.click()
+        target = self.find_element(*self.submit_fatie_BTN)
+        self.driver.execute_script("arguments[0].scrollIntoView(false);", target)
+        target.click()
 
     #修改帖子标题
     def modify(self,**data):
@@ -85,9 +86,12 @@ class LoginPage(Action):
         self.driver.switch_to_window(handles[1])
         target = self.find_element(*self.xingxing_loc)
         self.driver.execute_script("arguments[0].scrollIntoView(false);", target)
-        print(target.text)
+        print(self.username,target.text)
 
     #登出
     def logout(self):
-        self.find_element(*self.logout_loc)
+        target = self.find_element(*self.logout_loc)
+        self.driver.execute_script("arguments[0].scrollIntoView();", target)
+        target.click()
+        time.sleep(2)
 
