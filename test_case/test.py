@@ -19,5 +19,7 @@ while True:
         login_obj.check()
         time.sleep(1)
         login_obj.logout()
+        time.sleep(1)
+        login_obj.adsl()
         driver.quit()
         time.sleep(3600)
