@@ -24,6 +24,13 @@ class LoginPage(Action):
 
     logout_loc = (By.XPATH,'//*[@id="comeing_toptb"]/div/div[2]/a[5]')
 
+    admin_pass_loc = (By.ID,"pcPassword")
+    admin_pass = "1234qwer"
+    admin_ok_loc = (By.ID,"loginBtn")
+    ip_loc = (By.XPATH,'/html/body/center/form/table[4]/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr[2]/td[2]')
+    disconnect_loc = (By.ID,"Disconnect")
+
+
     login_url = "http://www.youcsky.com/member.php?mod=logging&action=login"
     fatie_url = "http://www.youcsky.com/forum.php?mod=post&action=newthread&fid=40"
 
@@ -90,8 +97,23 @@ class LoginPage(Action):
 
     #登出
     def logout(self):
+        handles = self.driver.window_handles
+        self.driver.switch_to_window(handles[0])
         target = self.find_element(*self.logout_loc)
         self.driver.execute_script("arguments[0].scrollIntoView();", target)
         target.click()
         time.sleep(2)
 
+    #拨号
+    def adsl(self):
+        self.driver.get("http://192.168.1.1")
+        self.send_keys(self.admin_pass_loc,self.admin_pass)
+        self.find_element(*self.admin_ok_loc).click()
+        IP = self.find_element(*self.ip_loc).text
+        print("发帖IP: ",IP)
+        self.find_element(*self.disconnect_loc).click
+        time.sleep(10)
+        self.find_element(*self.disconnect_loc)
+        IP = self.find_element(*self.ip_loc).text
+        print("新IP: ", IP)
+        time.sleep(10)
