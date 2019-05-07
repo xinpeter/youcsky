@@ -1,4 +1,4 @@
-import random
+import random,socket
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from PO.base import Action
@@ -28,8 +28,9 @@ class LoginPage(Action):
     admin_pass = "1234qwer"
     admin_ok_loc = (By.ID,"loginBtn")
     ip_loc = (By.XPATH,'/html/body/center/form/table[4]/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr[2]/td[2]')
+    frame_loc = (By.NAME,"mainFrame")
     disconnect_loc = (By.ID,"Disconnect")
-
+    connect_loc = (By.ID,"Connect")
 
     login_url = "http://www.youcsky.com/member.php?mod=logging&action=login"
     fatie_url = "http://www.youcsky.com/forum.php?mod=post&action=newthread&fid=40"
@@ -109,11 +110,14 @@ class LoginPage(Action):
         self.driver.get("http://192.168.1.1")
         self.send_keys(self.admin_pass_loc,self.admin_pass)
         self.find_element(*self.admin_ok_loc).click()
-        IP = self.find_element(*self.ip_loc).text
-        print("发帖IP: ",IP)
-        self.find_element(*self.disconnect_loc).click
+        frame = self.find_element(*self.frame_loc)
+        self.driver.switch_to_frame(frame)
+        ip = self.find_element(*self.ip_loc)
+        print("发帖IP: ",ip.text)
+        self.find_element(*self.disconnect_loc).click()
+        self.find_element(*self.connect_loc).click()
         time.sleep(10)
         self.find_element(*self.disconnect_loc)
-        IP = self.find_element(*self.ip_loc).text
-        print("新IP: ", IP)
+        ip = self.find_element(*self.ip_loc)
+        print("新IP: ", ip.text)
         time.sleep(10)

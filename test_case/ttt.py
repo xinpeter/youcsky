@@ -6,13 +6,10 @@ import time
 driver = webdriver.Chrome()
 driver.maximize_window()
 tem_data = ["data1","data2"]
-data = load_data(tem_data[0])
+data = load_data()
 login_obj = LoginPage(driver)
-login_obj.click_login(**data)
-time.sleep(1)
 try:
-    login_obj.fatie(**data)
-    time.sleep(10)
+    login_obj.adsl()
 except Exception as e:
     print(e)
 finally:

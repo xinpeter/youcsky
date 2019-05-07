@@ -19,7 +19,7 @@ class Action(object):
             WebDriverWait(self.driver,20).until(lambda driver:driver.find_element(*loc).is_displayed())
             return self.driver.find_element(*loc)
         except Exception as e:
-            print("未找到%s"%(loc))
+            print("未找到%s" %loc)
 
     #定义script方法，用于执行js脚本
     def script(self,src):
@@ -34,4 +34,4 @@ class Action(object):
                 self.find_element(*loc).clear()
             self.find_element(*loc).send_keys(value)
         except AttributeError:
-            print("未找到%s"%(loc))
+            print("未找到%s" %loc)
