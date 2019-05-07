@@ -45,7 +45,8 @@ class LoginPage(Action):
     def click_login(self,**data):
         self.username = data["username"]
         self.driver.get(self.login_url)
-        self.find_element(*self.login_BTN).click()
+        while self.isElementExist(self.login_BTN):
+            self.find_element(*self.login_BTN).click()
         time.sleep(1)           #等待3秒，等待登录弹窗加载完成
         self.send_keys(self.username_loc,data["username"])
         self.send_keys(self.password_loc,data["password"])
@@ -121,3 +122,13 @@ class LoginPage(Action):
         ip = self.find_element(*self.ip_loc)
         print("新IP: ", ip.text)
         time.sleep(10)
+
+    #判断元素是否存在
+    def isElementExist(self, element):
+        flag = True
+        try:
+            self.find_element(*element)
+            return flag
+        except:
+            flag = False
+            return flag
