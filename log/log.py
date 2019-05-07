@@ -4,7 +4,7 @@ class Log(object):
     def __init__(self):
         #创建logger，设置log级别
         self.logger = logging.getLogger()
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.INFO)
 
         #创建handler用于控制台输出
         self.ch = logging.StreamHandler()
