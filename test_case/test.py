@@ -2,10 +2,13 @@ from PO.login_page import LoginPage
 from PO.load_data import load_data
 from selenium import webdriver
 import time
+from log.log import Log
+
+log = Log().getlog()
 while True:
     list = load_data()
     for i in list.items():
-        print(i[1]["username"])
+        log.debug("%s 开始发帖" %i[1]["username"])
         driver = webdriver.Chrome()
         driver.maximize_window()
         data = load_data()
