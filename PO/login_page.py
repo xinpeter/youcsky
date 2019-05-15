@@ -96,6 +96,7 @@ class LoginPage(Action):
         target = self.find_element(*self.xingxing_loc)
         self.driver.execute_script("arguments[0].scrollIntoView(false);", target)
         print(self.username,target.text)
+        return target.text
 
     #登出
     def logout(self):
@@ -122,6 +123,7 @@ class LoginPage(Action):
         ip = self.find_element(*self.ip_loc)
         print("新IP: ", ip.text)
         time.sleep(10)
+
 
     #判断元素是否存在
     def isElementExist(self, element):
