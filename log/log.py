@@ -16,11 +16,17 @@ class Log(object):
         self.log_path = os.path.join(base_dir,"logs")
         self.log_name = self.log_path+os.sep+self.log_time+".log"
         self.fh = logging.FileHandler(self.log_name,'a',encoding="utf-8")
+
+        #格式化输出
         formatter = logging.Formatter('[%(asctime)s] %(filename)s->%(funcName)s line:%(lineno)d [%(levelname)s]%(message)s')
         self.fh.setFormatter(formatter)
         self.ch.setFormatter(formatter)
+
+        #添加Handler
         self.logger.addHandler(self.fh)
         self.logger.addHandler(self.ch)
+
+        #关闭log
         self.fh.close()
         self.ch.close()
 
