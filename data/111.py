@@ -138,23 +138,35 @@ if __name__ == '__main__':
             c_time = int(time.strftime("%H", time.localtime()))
             while 0 <= c_time <= 9 or 11 <= c_time < 12 or 12 < c_time < 16 or 24 < c_time < 24:
                 print("非工作时间等待600秒")
-                youcsky.ip()
+                try:
+                    youcsky.ip()
+                except Exception as e:
+                    print(e)
                 time.sleep(600)
 
                 c_time = int(time.strftime("%H", time.localtime()))
+
             try:
                 youcsky.login(i[1].get("username"), i[1].get("password"))
                 time.sleep(1)
                 youcsky.posting(i[1].get("message"))
                 time.sleep(1)
-            except:
-                print(i[1].get("username"),"发帖失败")
-                youcsky.logout()
+
+            except Exception as e:
+                print(i[1].get("username"),"发帖失败 ",e)
+                print("等待600秒")
+                time.sleep(600)
+
                 continue
-            youcsky.modify(i[1].get("subject"))
-            time.sleep(1)
-            youcsky.ip()
-            youcsky.check_star()
-            time.sleep(1)
-            youcsky.logout()
-            time.sleep(3600)
+            try:
+                youcsky.modify(i[1].get("subject"))
+                time.sleep(1)
+                youcsky.ip()
+                youcsky.check_star()
+                time.sleep(1)
+                youcsky.logout()
+
+            except Exception as e:
+                print("各种失败啊")
+            finally:
+                time.sleep(3600)
